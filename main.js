@@ -7,12 +7,9 @@ async function getCoordinates(city) {
     );
     const responseData = await response;
     const dataJson = await responseData.json();
-    //
-    console.log(dataJson);
 
     return [dataJson[0].lat, dataJson[0].lon];
   } catch (error) {
-    // window.alert(error);
     console.log(error);
   }
 }
@@ -20,17 +17,12 @@ async function getCoordinates(city) {
 async function getWeatherData(city) {
   try {
     let coords = await getCoordinates(city);
-    console.log(coords);
     const response = fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${+coords[0]}&lon=${+coords[1]}&appid=27724dba35d8d0160fe0e343853eed92&units=standard`,
       { mode: "cors" }
     );
-    // const response = fetch(
-    //   '"http://api.openweathermap.org/data/2.5/weather?lat=" +lat+ "&lon=" +long+ "&appid=a85717f57b6bd30e011747de59dc3a60";'
-    // );
     const responseData = await response;
     const weatherData = await responseData.json();
-    console.log(weatherData);
 
     // city
     const cityname = weatherData.name;
@@ -63,8 +55,7 @@ async function getWeatherData(city) {
       icon,
     };
   } catch (error) {
-    // alert(error);
-    console.log(error);
+    alert("Please enter a valid city!");
   }
 }
 
@@ -84,7 +75,6 @@ submit.addEventListener("click", async (e) => {
   e.preventDefault();
   const input = document.getElementById("input");
   let data = await getWeatherData(`${input.value}`);
-  console.log(data);
   input.value = "";
 
   temp.textContent = kelvinToCelsius(data.temperature);
@@ -95,8 +85,6 @@ submit.addEventListener("click", async (e) => {
   feelsLike.textContent = kelvinToCelsius(data.feels_like);
   humidity.textContent = data.humidity;
   wind.textContent = data.wind;
-
-  console.log(data);
 });
 
 function getLocalTime(data) {
