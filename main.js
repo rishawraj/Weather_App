@@ -78,12 +78,12 @@
     let data = await getWeatherData(`${input.value}`);
     input.value = "";
 
-    temp.textContent = kelvinToCelsius(data.temp) + " °C";
+    temp.textContent = `${kelvinToCelsius(data.temp)} °C`;
     city.textContent = data.cityname + ", " + data.country;
     rain.textContent = data.weather_desctiption;
     date.textContent = getLocalTime(data.timezone);
     icon.src = `https://openweathermap.org/img/wn/${data.icon}.png`;
-    feelsLike.textContent = kelvinToCelsius(data.feels_like) + " °C";
+    feelsLike.textContent = `${kelvinToCelsius(data.feels_like)} °C`;
     humidity.textContent = data.humidity;
     wind.textContent = data.wind;
 
