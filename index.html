@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js" defer></script>
+    <title>Weather App</title>
+  </head>
+  <body>
+    <header>
+      <h2>Weather App</h2>
+    </header>
+
+    <main>
+      <!-- !------------content-------------- -->
+      <div class="content">
+        <p class="city">London, GB</p>
+        <p id="date">10/10/2022, 07:55:54</p>
+
+        <p class="temp">28 °C</p>
+        <span>
+          <img id="icon" src="https://openweathermap.org/img/wn/09d.png" />
+        </span>
+
+        <p class="rain">drizzle rain</p>
+
+        <div class="info">
+          <p>feels like: <span class="feels-like">34 °C</span></p>
+          <p>humidity levels: <span class="humidity">79</span>%</p>
+          <p>wind: <span class="wind">3.09</span> k/m</p>
+        </div>
+      </div>
+      <!-- !----------content end-------------- -->
+      <div class="form">
+        <h2>Current Weather</h2>
+        <p>Search location</p>
+        <form>
+          <input id="input" type="text" required />
+          <button id="submit" type="submit">Search</button>
+        </form>
+      </div>
+    </main>
+
+    <footer><p>rishawraj@2022</p></footer>
+  </body>
+</html>
