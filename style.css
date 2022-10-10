@@ -55,7 +55,7 @@ main {
 #date {
   font-size: 15px;
 }
-.temp {
+.cel {
   font-size: 40px;
   display: flex;
 }
