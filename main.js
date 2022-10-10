@@ -1,4 +1,3 @@
-// ===================================
 async function getCoordinates(city) {
   try {
     const response = fetch(
