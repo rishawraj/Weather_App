@@ -39,7 +39,7 @@ async function getWeatherData(city) {
     // date time
     const timezone = weatherData.timezone;
     // temp celsius
-    const temp = weatherData.main.temp;
+    const temperature = weatherData.main.temp;
     // weather
     const weather_desctiption = weatherData.weather[0].description;
     // feels like
@@ -52,7 +52,7 @@ async function getWeatherData(city) {
     const icon = weatherData.weather[0].icon;
 
     return {
-      temp,
+      temperature,
       cityname,
       weather_desctiption,
       country,
@@ -87,7 +87,7 @@ submit.addEventListener("click", async (e) => {
   console.log(data);
   input.value = "";
 
-  temp.textContent = kelvinToCelsius(data.temp);
+  temp.textContent = kelvinToCelsius(data.temperature);
   city.textContent = data.cityname + ", " + data.country;
   rain.textContent = data.weather_desctiption;
   date.textContent = getLocalTime(data.timezone);
