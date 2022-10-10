@@ -2,10 +2,11 @@
   // ===================================
   async function getCoordinates(city) {
     try {
-      const response = await fetch(
+      const response = fetch(
         `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=27724dba35d8d0160fe0e343853eed92`
       );
-      const dataJson = await response.json();
+      const responseData = await response;
+      const dataJson = await responseData.json();
       return [dataJson[0].lat, dataJson[0].lon];
     } catch (error) {
       window.alert(error);
@@ -15,10 +16,11 @@
   async function getWeatherData(city) {
     try {
       let coords = await getCoordinates(city);
-      const response = await fetch(
+      const response = fetch(
         `https://api.openweathermap.org/data/2.5/weather?lat=${coords[0]}&lon=${coords[1]}&appid=27724dba35d8d0160fe0e343853eed92&units=standard`
       );
-      const weatherData = await response.json();
+      const responseData = await response;
+      const weatherData = await responseData.json();
       console.log(weatherData);
 
       // city
