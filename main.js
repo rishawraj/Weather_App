@@ -9,7 +9,7 @@ async function getCoordinates(city) {
 
     return [dataJson[0].lat, dataJson[0].lon];
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 }
 
@@ -22,6 +22,7 @@ async function getWeatherData(city) {
     );
     const responseData = await response;
     const weatherData = await responseData.json();
+    // console.log(weatherData);
 
     // city
     const cityname = weatherData.name;
@@ -41,6 +42,10 @@ async function getWeatherData(city) {
     const wind = weatherData.wind.speed;
     // icon
     const icon = weatherData.weather[0].icon;
+    // main
+    const main = weatherData.weather[0].main;
+    // id
+    const id = weatherData.weather[0].id;
 
     return {
       temperature,
@@ -52,6 +57,8 @@ async function getWeatherData(city) {
       timezone,
       feels_like,
       icon,
+      main,
+      id,
     };
   } catch (error) {
     alert("Please enter a valid city!");
@@ -74,7 +81,10 @@ submit.addEventListener("click", async (e) => {
   e.preventDefault();
   const input = document.getElementById("input");
   let data = await getWeatherData(`${input.value}`);
+  // console.log(data);
   input.value = "";
+
+  changeBackground(data.id);
 
   temp.textContent = kelvinToCelsius(data.temperature);
   city.textContent = data.cityname + ", " + data.country;
@@ -85,12 +95,6 @@ submit.addEventListener("click", async (e) => {
   humidity.textContent = data.humidity;
   wind.textContent = data.wind;
 });
-
-function getLocalTime(data) {
-  let date = new Date();
-  let time = date.getTime();
-  let;
-}
 
 // ?====================================================
 
@@ -107,4 +111,62 @@ function getLocalTime(data) {
 function kelvinToCelsius(kelvin) {
   const celsius = kelvin - 273.15;
   return Math.floor(celsius);
+}
+
+function changeBackground(id) {
+  let d = String(id)[0];
+  let c;
+  if (d == "8") {
+    c = String(id);
+  } else {
+    c = String(id)[0];
+  }
+  let url = "";
+  switch (c) {
+    case "2":
+      url = "./resources/thunderstorm.jpg";
+      break;
+
+    case "3":
+      url = "./resources/drizzle.jpg";
+      break;
+
+    case "5":
+      url = "./resources/rain.jpg";
+      break;
+
+    case "6":
+      url = "./resources/snow.jpg";
+      break;
+
+    case "7":
+      url = "./resources/atoms.jpg";
+      break;
+
+    case "800":
+      url = "./resources/clear.jpg";
+      break;
+
+    case "801":
+      url = "./resources/few_clouds.jpg";
+      break;
+
+    case "802":
+      url = "./resources/scattered_clouds.jpg";
+      break;
+
+    case "803":
+      url = "./resources/broken_clouds.jpg";
+      break;
+
+    case "804":
+      url = "./resources/overcast_clouds.jpg";
+      break;
+
+    default:
+      url = "./resources/rain.jpg";
+      break;
+  }
+
+  document.body.style.backgroundImage = `url(${url})`;
 }

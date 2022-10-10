@@ -11,15 +11,13 @@ body {
   justify-content: space-between;
   align-items: center;
   background-color: lightcyan;
-  background-image: url(./background.jpg);
+  background-image: url(./resources/atoms.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  /* gap: 100px; */
 }
 
 header {
-  /* background-color: rgba(255, 182, 193, 0.473); */
   background-color: rgba(173, 216, 230, 0.459);
   width: 100%;
   text-align: center;
