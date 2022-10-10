@@ -3,7 +3,8 @@
   async function getCoordinates(city) {
     try {
       const response = fetch(
-        `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=27724dba35d8d0160fe0e343853eed92`
+        `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=27724dba35d8d0160fe0e343853eed92`,
+        { mode: "cors" }
       );
       const responseData = await response;
       const dataJson = await responseData.json();
@@ -17,7 +18,8 @@
     try {
       let coords = getCoordinates(city);
       const response = fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${coords[0]}&lon=${coords[1]}&appid=27724dba35d8d0160fe0e343853eed92&units=standard`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${coords[0]}&lon=${coords[1]}&appid=27724dba35d8d0160fe0e343853eed92&units=standard`,
+        { mode: "cors" }
       );
       const responseData = await response;
       const weatherData = await responseData.json();
