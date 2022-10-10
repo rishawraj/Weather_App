@@ -4,4 +4,4 @@ features
 
 - async/await
 
-visit live site [here](https://github.com/rishawraj/Weather-App).
+visit live site [here](https://rishawraj.github.io/Weather_App/)
