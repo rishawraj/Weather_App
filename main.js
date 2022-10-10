@@ -2,7 +2,7 @@
 async function getCoordinates(city) {
   try {
     const response = fetch(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=27724dba35d8d0160fe0e343853eed92`,
+      `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=27724dba35d8d0160fe0e343853eed92`,
       { mode: "cors" }
     );
     const responseData = await response;
