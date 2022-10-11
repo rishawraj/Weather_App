@@ -1,3 +1,5 @@
+// todo add loading something!
+
 async function getCoordinates(city) {
   try {
     const response = fetch(
@@ -9,7 +11,7 @@ async function getCoordinates(city) {
 
     return [dataJson[0].lat, dataJson[0].lon];
   } catch (error) {
-    // console.log(error);
+    console.log(error);
   }
 }
 
@@ -22,7 +24,7 @@ async function getWeatherData(city) {
     );
     const responseData = await response;
     const weatherData = await responseData.json();
-    console.log(weatherData);
+    // console.log(weatherData);
 
     // city
     const cityname = weatherData.name;
@@ -65,8 +67,6 @@ async function getWeatherData(city) {
   }
 }
 
-//
-
 const submit = document.querySelector("#submit");
 const city = document.querySelector(".city");
 const temp = document.querySelector(".temp");
@@ -76,27 +76,62 @@ const icon = document.querySelector("#icon");
 const feelsLike = document.querySelector(".feels-like");
 const humidity = document.querySelector(".humidity");
 const wind = document.querySelector(".wind");
+const unitBtn = document.getElementById("units");
+const input = document.getElementById("input");
 
-submit.addEventListener("click", async (e) => {
+//! ============= evenlisteners =============
+document.addEventListener(
+  "DOMContentLoaded",
+  render(kelvinToCelsius, "chapra")
+);
+
+// change units
+
+let unitsInCelsius = true;
+let temperatureK = 0;
+let feels_likeK = 0;
+
+unitBtn.addEventListener("click", () => {
+  if (unitsInCelsius) {
+    temp.textContent = kelvinToFahrenheit(temperatureK) + "°F";
+    feelsLike.textContent = kelvinToFahrenheit(feels_likeK) + "°F";
+  } else {
+    temp.textContent = kelvinToCelsius(temperatureK) + "°C";
+    feelsLike.textContent = kelvinToCelsius(feels_likeK) + "°C";
+  }
+
+  unitsInCelsius = !unitsInCelsius;
+});
+
+// change units end
+
+submit.addEventListener("click", (e) => {
   e.preventDefault();
-  const input = document.getElementById("input");
-  let data = await getWeatherData(`${input.value}`);
-  // console.log(data);
+  render(kelvinToCelsius, input.value);
   input.value = "";
+});
+//! ============= evenlisteners end =============
 
-  changeBackground(data.id, data.icon);
+// ?===================== functions ===============================
 
-  temp.textContent = kelvinToCelsius(data.temperature);
+async function render(kelvinTo, input) {
+  let data = await getWeatherData(`${input}`);
+
+  temperatureK = data.temperature;
+  feels_likeK = data.feels_like;
+
+  temp.textContent = kelvinTo(data.temperature) + "°C";
+  feelsLike.textContent = kelvinTo(data.feels_like) + "°C";
+
   city.textContent = data.cityname + ", " + data.country;
   rain.textContent = data.weather_desctiption;
   date.textContent = getLocalTime(data.timezone);
   icon.src = `https://openweathermap.org/img/wn/${data.icon}.png`;
-  feelsLike.textContent = kelvinToCelsius(data.feels_like);
   humidity.textContent = data.humidity;
   wind.textContent = data.wind;
-});
 
-// ?====================================================
+  changeBackground(data.id, data.icon);
+}
 
 function getLocalTime(data) {
   let date = new Date();
@@ -113,8 +148,12 @@ function kelvinToCelsius(kelvin) {
   return Math.floor(celsius);
 }
 
+function kelvinToFahrenheit(kelvin) {
+  const fahrenheit = (kelvin - 273.15) * (9 / 5) + 32;
+  return Math.floor(fahrenheit);
+}
+
 function changeBackground(id, icon) {
-  console.log(icon[2]);
   let d = String(id)[0];
   let c;
   if (d == "8") {
@@ -123,7 +162,6 @@ function changeBackground(id, icon) {
     c = icon[2] + String(id)[0];
   }
   let url = "";
-  console.log(c);
   switch (c) {
     case "d2":
       url = "./resources/thunderstorm.jpg";
