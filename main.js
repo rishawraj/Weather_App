@@ -22,7 +22,7 @@ async function getWeatherData(city) {
     );
     const responseData = await response;
     const weatherData = await responseData.json();
-    // console.log(weatherData);
+    console.log(weatherData);
 
     // city
     const cityname = weatherData.name;
@@ -84,7 +84,7 @@ submit.addEventListener("click", async (e) => {
   // console.log(data);
   input.value = "";
 
-  changeBackground(data.id);
+  changeBackground(data.id, data.icon);
 
   temp.textContent = kelvinToCelsius(data.temperature);
   city.textContent = data.cityname + ", " + data.country;
@@ -113,58 +113,82 @@ function kelvinToCelsius(kelvin) {
   return Math.floor(celsius);
 }
 
-function changeBackground(id) {
+function changeBackground(id, icon) {
+  console.log(icon[2]);
   let d = String(id)[0];
   let c;
   if (d == "8") {
-    c = String(id);
+    c = icon[2] + String(id);
   } else {
-    c = String(id)[0];
+    c = icon[2] + String(id)[0];
   }
   let url = "";
+  console.log(c);
   switch (c) {
-    case "2":
+    case "d2":
       url = "./resources/thunderstorm.jpg";
       break;
 
-    case "3":
+    case "d3":
       url = "./resources/drizzle.jpg";
       break;
 
-    case "5":
+    case "d5":
       url = "./resources/rain.jpg";
       break;
 
-    case "6":
+    case "d6":
       url = "./resources/snow.jpg";
       break;
 
-    case "7":
+    case "d7":
       url = "./resources/atoms.jpg";
       break;
 
-    case "800":
+    case "d800":
       url = "./resources/clear.jpg";
       break;
 
-    case "801":
+    case "d801":
       url = "./resources/few_clouds.jpg";
       break;
 
-    case "802":
+    case "d802":
       url = "./resources/scattered_clouds.jpg";
       break;
 
-    case "803":
+    case "d803":
       url = "./resources/broken_clouds.jpg";
       break;
 
-    case "804":
+    case "d804":
       url = "./resources/overcast_clouds.jpg";
+      break;
+    // night ===================
+    case "n5":
+      url = "./resources/night_rain.jpg";
+      break;
+
+    case "n7":
+      url = "./resources/atoms_night.jpg";
+      break;
+
+    case "n800":
+      url = "./resources/clear_night.jpg";
+      break;
+
+    case "n801":
+    case "n802":
+    case "n803":
+      url = "./resources/night_few_clouds.jpg";
+      break;
+
+    case "n804":
+      url = "./resources/night_clouds.jpg";
       break;
 
     default:
-      url = "./resources/rain.jpg";
+      url = "./resources/atoms.jpg";
       break;
   }
 
